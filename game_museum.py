@@ -14,3 +14,20 @@ class GameWarehouse:
 
     def list_games(self):
         return self.__games
+
+
+class GameMuseum(GameWarehouse):
+    def __init__(self):
+        super().__init__()
+
+    def list_games(self):
+        return [game for game in super().list_games() if game.year < 1990]
+
+
+if __name__ == "__main__":
+    museum = GameMuseum()
+    museum.add_game(ComputerGame("Pacman", "Namco", 1980))
+    museum.add_game(ComputerGame("GTA 2", "Rockstar", 1999))
+    museum.add_game(ComputerGame("Bubble Bobble", "Taito", 1986))
+    for game in museum.list_games():
+        print(game.name)
