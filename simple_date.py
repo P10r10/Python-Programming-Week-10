@@ -40,18 +40,15 @@ class SimpleDate:
             new_month %= 12
         return SimpleDate(new_day, new_month, new_year)
 
-    def __sub__(begin: "SimpleDate", end: "SimpleDate") -> int:
-        total_days = abs((end.__year - begin.__year) * 365)
-        total_days += abs((end.__month - begin.__month) * 30)
-        total_days += abs(end.__day - begin.__day)
-        return total_days
+    def __total_days(self, date: "SimpleDate") -> int:
+        return date.__day + date.__month * 30 + date.__year * 360
+
+    def __sub__(self, other: "SimpleDate") -> int:
+        return abs(self.__total_days(self) - self.__total_days(other))
 
 
 if __name__ == "__main__":
-    d1 = SimpleDate(4, 10, 2020)
-    d2 = SimpleDate(2, 11, 2020)
-    d3 = SimpleDate(28, 12, 1985)
+    d1 = SimpleDate(1, 7, 1999)  # 719640 + 210 + 1 = 719851
+    d2 = SimpleDate(1, 8, 1998)  # 719280 + 240 + 1 = 719521
 
-    print(d2-d1)
     print(d1-d2)
-    print(d1-d3)
